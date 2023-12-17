@@ -8,9 +8,6 @@
     }
  ],
  "framework": "@vercel/node",
- "settings": {
-    "nodeVersion": "14.x"
- },
  "env": {
     "PORT": "3000"
  },
