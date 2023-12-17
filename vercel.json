@@ -1,20 +1,17 @@
 
 {
- "version": 2,
- "builds": [
-    {
-      "src": "app.js",
-      "use": "@vercel/node"
-    }
- ],
- "framework": "@vercel/node",
- "env": {
-    "PORT": "3000"
- },
- "routes": [
-    {
-      "src": "/api/(.*)",
-      "dest": "/api/$1"
-    }
- ]
-}
+    "version": 2,
+    "builds": [
+      {
+        "src": "app.js",
+        "use": "@vercel/node"
+      }
+    ],
+    "routes": [
+      {
+        "src": "/(.*)",
+        "dest": "app.js"
+      }
+    ]
+  }
+  
