@@ -15,7 +15,7 @@ const bcrypt=require('bcrypt')
    });
 
    //router to get single user
-   router.get('/user/:id', async (req, res) => {
+   router.get('/single/:id', async (req, res) => {
         try {
         const user = await User.findById(req.params.id).select('-password -accountType');
         if (!user) {
@@ -27,7 +27,7 @@ const bcrypt=require('bcrypt')
         }
    });
    // Route to delete a user by ID
-    router.delete('/users/:id', async (req, res) => {
+    router.delete('/:id', async (req, res) => {
         try {
         const user = await User.findByIdAndDelete(req.params.id).select('-password -accountType');
         if (!user) {
