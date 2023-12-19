@@ -12,7 +12,7 @@ const options = {
 passport.use("user",
   new StrategyJwt(options, async (jwtPayload, done) => {
     return User.findById(jwtPayload._id)
-      .select("-password -accountType")
+      .select("-password")
       .then((user) => {
         if (user.accountType === "user") {
           return done(null, user);
@@ -27,7 +27,7 @@ passport.use("user",
 passport.use("admin",
   new StrategyJwt(options, async (jwtPayload, done) => {
     return User.findById(jwtPayload._id)
-      .select("-password -accountType")
+      .select("-password")
       .then((user) => {
         if (user.accountType === "admin") {
           return done(null, user);
