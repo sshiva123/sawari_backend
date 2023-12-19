@@ -14,7 +14,25 @@ passport.use("user",
     return User.findById(jwtPayload._id)
       .select("-password -accountType")
       .then((user) => {
-        return done(null, user);
+        if (user.accountType === "user") {
+          return done(null, user);
+        }
+        return done(null, false);
+      })
+      .catch((error) => {
+        return done(error);
+      });
+  })
+);
+passport.use("admin",
+  new StrategyJwt(options, async (jwtPayload, done) => {
+    return User.findById(jwtPayload._id)
+      .select("-password -accountType")
+      .then((user) => {
+        if (user.accountType === "admin") {
+          return done(null, user);
+        }
+        return done(null, false);
       })
       .catch((error) => {
         return done(error);

@@ -18,4 +18,18 @@ module.exports = {
       }
     )(req, res, next);
   },
+  authenticate_admin: function (req, res, next) {
+    return passport.authenticate(
+      "admin",
+      {
+        session: false,
+      },
+      (err, user, info) => {
+        if (err) return res.status(401).json({message:"Something went wrong"});
+        if (!user) return res.status(401).json({ message: "Unauthorized" });
+        req.user = user;
+        next();
+      }
+    )(req, res, next);
+  },
 };
