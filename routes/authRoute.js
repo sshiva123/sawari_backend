@@ -7,9 +7,9 @@ router.post('/login',async(req,res)=>{
     try {
         
         const {username,password,email}=req.body;
-        const user=await User.findOne({ username });
+        const user=await User.findOne({ email });
         if(!user){
-            return res.status(401).json({message:"Username does not exist"});
+            return res.status(404).json({message:"Not found"});
         }
         const isMatch=await bcrypt.compare(password,user.password);
         if(!isMatch){
