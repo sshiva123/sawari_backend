@@ -1,3 +1,4 @@
+
 const express=require('express');
 const app=express();
 const bodyParser=require('body-parser');
@@ -21,6 +22,7 @@ const vehicleRoute=require('./routes/vehicleRoute');
 const subjectRoute=require('./routes/subjectRoute');
 const userRoute=require('./routes/userRoute');
 const authRoute=require('./routes/authRoute');
+
 //connecting database
 let mongoDB=process.env.MONGO_DB_URL;
 mongoose.connect(mongoDB).then(() => console.log('Connected to MongoDB')).catch((error) => console.error(error));
@@ -40,10 +42,10 @@ app.use('/vehicle',authUser,vehicleRoute);
 app.use('/subject',authUser,subjectRoute);
 app.use('/user',authUser,userRoute);
 app.use('/auth',authRoute);
-app.get('/',(req,res)=>{
-    res.send("Hello");
+app.get('/',async (req,res)=>{
+        return res.status(200).json({message:`Hello`})
+
 })
 //boot up server
 app.listen(5000);
-
 //Special thanks to Bing Chat and ChatGPT😂😂
