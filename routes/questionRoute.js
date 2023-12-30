@@ -227,8 +227,18 @@ router.get('/', async (req, res) => {
   router.delete('/:id', async (req, res) => {
     try {
       const question = await Question.findByIdAndDelete(req.params.id);
-      console.log(question)
-      if(question.image.bool) {await fs.unlink('./uploads/'+question.image.imageData)};
+      if (question.image.bool ) {
+        const params = {
+          Bucket: 'sawari',
+          Key: question.image.imageData
+        };
+
+        // Delete the file
+        s3.deleteObject(params, function(err, data) {
+          if (err) console.log(err, err.stack);  // error
+          else     console.log("Successfully deleted file from bucket");                 // deleted
+        });
+      }
       res.status(200).json({question:question,message:"Success"});
     } catch (error) {
       res.status(500).json({message:"Error",error:error});
